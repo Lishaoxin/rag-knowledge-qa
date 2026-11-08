@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>智能知识库问答系统</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input {
+            width: 70%;
+            padding: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #answer {
+            margin-top: 20px;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        #source {
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 智能知识库问答系统</h1>
+
+    <input type="text" id="question" placeholder="输入你的问题...">
+    <button onclick="ask()">提问</button>
+
+    <div id="answer"></div>
+
+    <script>
+        async function ask() {
+            const q = document.getElementById("question").value;
+
+            const resp = await fetch("/ask", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({"question": q})
+            });
+
+            const data = await resp.json();
+            document.getElementById("answer").innerHTML =
+                "<strong>回答：</strong>" + data.answer +
+                "<br><span id='source'>来源：" + data.source + "</span>";
+        }
+    </script>
+</body>
+</html>

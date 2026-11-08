@@ -1,0 +1,25 @@
+# ===== 敏感文件（绝对不能上传！）=====
+.env
+
+# ===== Python 虚拟环境（太大，别人自己装）=====
+venv/
+
+# ===== Python 缓存（自动生成，不用上传）=====
+__pycache__/
+*.pyc
+
+# ===== 向量数据库（可重建，不用上传）=====
+chroma_db/
+
+# ===== 练习文件（不属于项目，不上传）=====
+Minimum_*.py
+Minimun_*.py
+strength.py
+main.py
+test_*.py
+embedding_demo.py
+minimal_rag.py
+chroma_demo.py
+chunk_demo.py
+rag_retrieve_func.py
+tools_model
