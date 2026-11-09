@@ -1,4 +1,5 @@
 import time
+from rank_bm25 import BM25Okapi
 from fastapi.responses import FileResponse
 from fastapi.responses import StreamingResponse
 import os
@@ -21,6 +22,35 @@ def embed(text):   # 单个文本的向量化（/ask 查询时用）
         json={"model": "BAAI/bge-large-zh-v1.5", "input": text}
     )
     return resp.json()["data"][0]["embedding"]
+
+def hybrid_search(query, top_n=10):
+    # ① 向量粗选 top-10
+    q_vec = embed(query)
+    result = collection.query(query_embeddings=[q_vec], n_results=top_n)
+    candidates = result["documents"][0]      # 10 个候选文档
+    candidate_ids = result["ids"][0]          # 10 个候选的 id
+
+    # ② 关键词精排：对这 10 个候选用 BM25 打分
+    kw_ranked = keyword_search(query, candidates, top_n=top_n)
+
+    # ③ 取关键词得分最高的那个
+    best_idx = kw_ranked[0][0]                # 第一个结果的「文档序号」
+    return candidates[best_idx], candidate_ids[best_idx]
+
+def keyword_search(query, documents, top_n=10):
+    # ① 把所有文档「分词」（简单版：按字符切，中文可用）
+    tokenized_docs = [list(doc) for doc in documents]   # 每个字符当一个"词"
+
+    # ② 建 BM25 索引
+    bm25 = BM25Okapi(tokenized_docs)
+
+    # ③ 查询
+    tokenized_query = list(query)
+    scores = bm25.get_scores(tokenized_query)   # 每个文档一个「关键词得分」
+
+    # ④ 返回得分最高的 top_n 个（文档 + 得分）
+    ranked = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
+    return ranked[:top_n]
 
 # ===== 【启动时做一次】建库 =====
 def embed_batch(texts, batch_size=20):
@@ -60,7 +90,7 @@ collection = client.get_or_create_collection("knowledge_base")
 # docs_dir = "./docs"
 # documents = []
 # filenames = []
-history = []
+histories = {}
 
 def chunk_text(text, chunk_size=300):
     chunks = []
@@ -178,17 +208,18 @@ def rerank(query, documents, top_n=3):
 
 class AskRequest(BaseModel):     # ← 请求体：用户的问题
     question: str
+    user_id: str = "default"
+
+def get_history(user_id):
+    if user_id not in histories:      # 这个用户还没有历史
+        histories[user_id] = []       # 给他建一个空的
+    return histories[user_id]         # 返回他的历史
 
 @app.post("/ask")
 def ask(req: AskRequest):
     try:                                      # 尝试执行下面这些
-        q_vec = embed(req.question)
-        result = collection.query(query_embeddings=[q_vec], n_results=10)
-        candidates = result["documents"][0]
-        candidate_ids = result["ids"][0]
-        reranked_docs, reranked_indices = rerank(req.question, candidates, top_n=1)
-        context = reranked_docs[0]
-        source = candidate_ids[reranked_indices[0]]
+        context, source = hybrid_search(req.question)
+        history = get_history(req.user_id)
         history.append({"role": "user", "content": req.question})
         answer = generate(history, context)
         history.append({"role": "assistant", "content": answer})
@@ -226,16 +257,14 @@ def home():
 @app.post("/ask_stream")
 def ask_stream(req: AskRequest):
     try:
-        # ① 检索（和 /ask 一样）
-        q_vec = embed(req.question)
-        result = collection.query(query_embeddings=[q_vec], n_results=10)
-        candidates = result["documents"][0]
-        reranked_docs, reranked_indices = rerank(req.question, candidates, top_n=1)
-        context = reranked_docs[0]
-
+        context, source = hybrid_search(req.question)
+        history = get_history(req.user_id)    # ← 先取出来
         history.append({"role": "user", "content": req.question})
 
-        # ② 流式生成
-        return StreamingResponse(generate_stream(history, context), media_type="text/plain")
+        def generate_with_source():
+            yield from generate_stream(history, context)   # ← 用这个 history
+            yield f"\n\n来源：{source}"
+
+        return StreamingResponse(generate_with_source(), media_type="text/plain")
     except Exception as e:
         return {"error": f"出错了：{e}"}
