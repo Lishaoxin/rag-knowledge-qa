@@ -70,6 +70,27 @@ def chunk_text(text, chunk_size=300):
             chunks.append(chunk)
     return chunks
 
+def chunk_by_sentence(text, max_chunk=300):
+    # ① 把各种句子结尾符号，统一换成句号，再按句号切
+    text = text.replace("！", "。").replace("？", "。").replace("\n", "。")
+    sentences = text.split("。")
+    sentences = [s.strip() for s in sentences if s.strip()]   # 去掉空白
+
+    # ② 合并短句，直到接近 max_chunk
+    chunks = []
+    current = ""
+    for s in sentences:
+        if len(current) + len(s) <= max_chunk:   # 还能装下，就合并
+            current += s + "。"
+        else:                                    # 装不下了，当前块收工
+            if current:
+                chunks.append(current)
+            current = s + "。"                   # 开新块
+    if current:                                  # 最后一块
+        chunks.append(current)
+
+    return chunks
+
 
 # ===== 替换：读文档 + 切块 =====
 docs_dir = "./docs"
@@ -80,7 +101,7 @@ for filename in os.listdir(docs_dir):          # 列出文件夹里所有文件�
     if filename.endswith(".txt"):              # 只处理 .txt 文件
         with open(os.path.join(docs_dir, filename), "r", encoding="utf-8") as f:
             doc_text = f.read()
-        chunks = chunk_text(doc_text, 300)          # 切成块
+        chunks = chunk_by_sentence(doc_text, 300)          # 切成块
         for i, chunk in enumerate(chunks):
             all_chunks.append(chunk)
             all_ids.append(f"{filename}_{i}")        # id = 文件名_块号
@@ -153,6 +174,8 @@ def rerank(query, documents, top_n=3):
     return docs, indices                            # 返回两样
 
 
+
+
 class AskRequest(BaseModel):     # ← 请求体：用户的问题
     question: str
 
@@ -181,7 +204,7 @@ class UploadRequest(BaseModel):     # 上传请求体：文件名 + 内容
 def upload(req: UploadRequest):
     try:
         # ① 切块
-        chunks = chunk_text(req.content, chunk_size=300)
+        chunks = chunk_by_sentence(req.content, chunk_size=300)
 
         # ② 每块向量化
         embeddings = embed_batch(chunks)
