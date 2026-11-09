@@ -40,19 +40,31 @@
 
     <script>
         async function ask() {
-            const q = document.getElementById("question").value;
+        const q = document.getElementById("question").value;
+        const answerDiv = document.getElementById("answer");
 
-            const resp = await fetch("/ask", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({"question": q})
-            });
+        answerDiv.innerHTML = "思考中...";   // 先显示提示
 
-            const data = await resp.json();
-            document.getElementById("answer").innerHTML =
-                "<strong>回答：</strong>" + data.answer +
-                "<br><span id='source'>来源：" + data.source + "</span>";
+        const resp = await fetch("/ask_stream", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({"question": q})
+        });
+
+        answerDiv.innerHTML = "";           // 清空提示
+
+        const reader = resp.body.getReader();       // ① 拿到读取器
+        const decoder = new TextDecoder("utf-8");   // ② 解码器（处理中文）
+
+        while (true) {
+            const {done, value} = await reader.read();   // ③ 读一块
+            if (done) break;                             // 读完了，退出
+
+            const text = decoder.decode(value, {stream: true});  // ④ 字节转文字
+            answerDiv.innerHTML += text;                 // ⑤ 追加到页面
         }
+    }
+
     </script>
 </body>
 </html>
