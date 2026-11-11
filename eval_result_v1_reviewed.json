@@ -1,0 +1,1157 @@
+{
+  "index_key": "6f00bd42abc82068",
+  "embedding_model": "BAAI/bge-large-zh-v1.5",
+  "files_sha256": {
+    "eval_cases_v1.json": "71098f1d0409641fac06ee65959cdcd7bbc4b29e4d9c2a1dbc77aed1d82861d2",
+    "docs/fastapi.txt": "f0dfcfef4beeac13a81d5b9db49db24a02876bde37a6d5e8ef926b079e8ff95a",
+    "docs/python.txt": "f53ac86ebacd673411ec876a46d10b135f47fbac6c2d064e54e5825b74402e41",
+    "docs/python_tutorial.txt": "aef04dd461b7a60fce093913a7343b6d6c8e4e75dae795765c217c4272b6dcdc",
+    "docs/rag.txt": "995015ec0c672c96c8d7f9ecd9d7f6bb75969b0163eb0e646eef283b56f53b65"
+  },
+  "total": 20,
+  "hits": {
+    "vector": 14,
+    "bm25": 13,
+    "rerank": 16
+  },
+  "rows": [
+    {
+      "case": {
+        "question": "接入 RAG 后，大模型可以引用什么？",
+        "source": "rag.txt",
+        "evidence": "能让大模型引用外部知识"
+      },
+      "stages": {
+        "vector": {
+          "id": "rag.txt_0",
+          "hit": true,
+          "text": "RAG 是检索增强生成，能让大模型引用外部知识。"
+        },
+        "bm25": {
+          "id": "rag.txt_0",
+          "hit": true,
+          "text": "RAG 是检索增强生成，能让大模型引用外部知识。"
+        },
+        "rerank": {
+          "id": "rag.txt_0",
+          "hit": true,
+          "text": "RAG 是检索增强生成，能让大模型引用外部知识。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "rag.txt_0",
+          "python_tutorial.txt_360",
+          "python_tutorial.txt_621",
+          "python_tutorial.txt_857",
+          "python_tutorial.txt_1094",
+          "python_tutorial.txt_632",
+          "python_tutorial.txt_281",
+          "python_tutorial.txt_109",
+          "python_tutorial.txt_357",
+          "python_tutorial.txt_753",
+          "python_tutorial.txt_455",
+          "python_tutorial.txt_251",
+          "python_tutorial.txt_163",
+          "python_tutorial.txt_409",
+          "python_tutorial.txt_504",
+          "python_tutorial.txt_341",
+          "python_tutorial.txt_403",
+          "python_tutorial.txt_1100",
+          "python_tutorial.txt_1098",
+          "python_tutorial.txt_405"
+        ],
+        "bm25": [
+          "rag.txt_0",
+          "python_tutorial.txt_341",
+          "python_tutorial.txt_109",
+          "python_tutorial.txt_1100",
+          "python_tutorial.txt_409"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "FastAPI 主要用来构建什么？",
+        "source": "fastapi.txt",
+        "evidence": "用于快速构建 API"
+      },
+      "stages": {
+        "vector": {
+          "id": "fastapi.txt_0",
+          "hit": true,
+          "text": "FastAPI 是一个 Python Web 框架，用于快速构建 API。"
+        },
+        "bm25": {
+          "id": "fastapi.txt_0",
+          "hit": true,
+          "text": "FastAPI 是一个 Python Web 框架，用于快速构建 API。"
+        },
+        "rerank": {
+          "id": "fastapi.txt_0",
+          "hit": true,
+          "text": "FastAPI 是一个 Python Web 框架，用于快速构建 API。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "fastapi.txt_0",
+          "python_tutorial.txt_454",
+          "python_tutorial.txt_640",
+          "python_tutorial.txt_1122",
+          "python_tutorial.txt_1040",
+          "python_tutorial.txt_683",
+          "python_tutorial.txt_1039",
+          "python_tutorial.txt_455",
+          "python_tutorial.txt_1095",
+          "python_tutorial.txt_14",
+          "python_tutorial.txt_680",
+          "python_tutorial.txt_681",
+          "python_tutorial.txt_682",
+          "python_tutorial.txt_11",
+          "python_tutorial.txt_357",
+          "python_tutorial.txt_1082",
+          "python_tutorial.txt_632",
+          "python_tutorial.txt_1100",
+          "python_tutorial.txt_1041",
+          "python_tutorial.txt_1084"
+        ],
+        "bm25": [
+          "fastapi.txt_0",
+          "python_tutorial.txt_1082",
+          "python_tutorial.txt_455",
+          "python_tutorial.txt_1100",
+          "python_tutorial.txt_357"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "资料里列举了 Python 常用于哪两个领域？",
+        "source": "python.txt",
+        "evidence": "常用于数据分析和人工智能"
+      },
+      "stages": {
+        "vector": {
+          "id": "python.txt_0",
+          "hit": true,
+          "text": "Python 是一种编程语言，常用于数据分析和人工智能。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_159",
+          "hit": false,
+          "text": "Python不但能非常灵活地定义函数，而。且本身内置了很多有用的函数，可以直接调用。抽象。抽象是数学中非常常见的概念。举个例子：。计算数列的和，比如： 1 + 2 + 3 + ... + 100 ，写起来十分不方便，于是数学家发明了求和。符号∑，可以把 1 + 2 + 3 + ... + 100 记作：。100。n。∑。n=1。这种抽象记法非常强大，因为我们看到 ∑ 就可以理解成求和，而不是还原成低级的加法运算。而且，这种抽象记法是可扩展的，比如：。https://liaoxuefeng.com/books/python/ Page 74 / 473。Python教程 廖雪峰。100。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_13",
+          "hit": false,
+          "text": "资深程序员向你炫耀他写的晦涩难懂、动不动就几万行的代码，你可以尽情地嘲笑他。那Python适合开发哪些类型的应用呢。首选是网络应用，包括网站、后台服务等等；。其次是许多日常需要的小工具，包括系统管理员需要的脚本任务等等；。另外就是把其他语言开发的程序再包装起来，方便使用。最后说说Python的缺点。任何编程语言都有缺点，Python也不例外。优点说过了，那Python有哪些缺点呢。第一个缺点就是运行速度慢，和C程序相比非常慢，因为Python是解释型语言，你的代码在执行。时会一行一行地翻译成CPU能理解的机器码，这个翻译过程非常耗时，所以很慢。而C程序是运。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python.txt_0",
+          "python_tutorial.txt_11",
+          "python_tutorial.txt_8",
+          "python_tutorial.txt_13",
+          "python_tutorial.txt_16",
+          "python_tutorial.txt_1129",
+          "python_tutorial.txt_1061",
+          "python_tutorial.txt_4",
+          "python_tutorial.txt_12",
+          "python_tutorial.txt_67",
+          "python_tutorial.txt_28",
+          "python_tutorial.txt_10",
+          "python_tutorial.txt_159",
+          "python_tutorial.txt_5",
+          "python_tutorial.txt_682",
+          "python_tutorial.txt_64",
+          "python_tutorial.txt_1041",
+          "python_tutorial.txt_905",
+          "python_tutorial.txt_9",
+          "python_tutorial.txt_680"
+        ],
+        "bm25": [
+          "python_tutorial.txt_159",
+          "python_tutorial.txt_13",
+          "python_tutorial.txt_1129",
+          "python_tutorial.txt_16",
+          "python_tutorial.txt_1061"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "函数定义中包含 yield 时，这个函数属于什么类型？",
+        "source": "python_tutorial.txt",
+        "evidence": "而是一个generator函数"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_257",
+          "hit": true,
+          "text": "n = n + 1。return 'done'。这就是定义generator的另一种方法。如果一个函数定义中包含 yield 关键字，那么这个函数。就不再是一个普通函数，而是一个generator函数，调用一个generator函数将返回一个。generator：。>>> f = fib(6)。>>> f。<generator object fib at 0x104feaaa0>。这里，最难理解的就是generator函数和普通函数的执行流程不一样。普通函数是顺序执行，遇。到 return 语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用 next()。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_257",
+          "hit": true,
+          "text": "n = n + 1。return 'done'。这就是定义generator的另一种方法。如果一个函数定义中包含 yield 关键字，那么这个函数。就不再是一个普通函数，而是一个generator函数，调用一个generator函数将返回一个。generator：。>>> f = fib(6)。>>> f。<generator object fib at 0x104feaaa0>。这里，最难理解的就是generator函数和普通函数的执行流程不一样。普通函数是顺序执行，遇。到 return 语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用 next()。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_257",
+          "hit": true,
+          "text": "n = n + 1。return 'done'。这就是定义generator的另一种方法。如果一个函数定义中包含 yield 关键字，那么这个函数。就不再是一个普通函数，而是一个generator函数，调用一个generator函数将返回一个。generator：。>>> f = fib(6)。>>> f。<generator object fib at 0x104feaaa0>。这里，最难理解的就是generator函数和普通函数的执行流程不一样。普通函数是顺序执行，遇。到 return 语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用 next()。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_257",
+          "python_tutorial.txt_407",
+          "python_tutorial.txt_258",
+          "python_tutorial.txt_1104",
+          "python_tutorial.txt_408",
+          "python_tutorial.txt_406",
+          "python_tutorial.txt_477",
+          "python_tutorial.txt_411",
+          "python_tutorial.txt_173",
+          "python_tutorial.txt_180",
+          "python_tutorial.txt_395",
+          "python_tutorial.txt_487",
+          "python_tutorial.txt_456",
+          "python_tutorial.txt_259",
+          "python_tutorial.txt_409",
+          "python_tutorial.txt_422",
+          "python_tutorial.txt_441",
+          "python_tutorial.txt_373",
+          "python_tutorial.txt_400",
+          "python_tutorial.txt_485"
+        ],
+        "bm25": [
+          "python_tutorial.txt_257",
+          "python_tutorial.txt_373",
+          "python_tutorial.txt_422",
+          "python_tutorial.txt_456",
+          "python_tutorial.txt_406"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "tuple 创建后还能修改其中的元素吗？",
+        "source": "python_tutorial.txt",
+        "evidence": "tuple一旦初始化就不能修改",
+        "alternative_evidence": [
+          "现在，classmates这个tuple不能变了",
+          "即指向 'a' ，就不能改成指向 'b'"
+        ]
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_118",
+          "hit": true,
+          "text": "别急，我们先看看定义的时候tuple包含的3个元素：。当我们把list的元素 'A' 和 'B' 修改为 'X' 和 'Y' 后，tuple变为：。表面上看，tuple的元素确实变了，但其实变的不是tuple的元素，而是list的元素。tuple一开始。指向的list并没有改成别的list，所以，tuple所谓的“不变”是说，tuple的每个元素，指向永远不。https://liaoxuefeng.com/books/python/ Page 54 / 473。Python教程 廖雪峰。变。即指向 'a' ，就不能改成指向 'b' ，指向一个list，就不能改成指向其他对象，但指向的。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_118",
+          "hit": true,
+          "text": "别急，我们先看看定义的时候tuple包含的3个元素：。当我们把list的元素 'A' 和 'B' 修改为 'X' 和 'Y' 后，tuple变为：。表面上看，tuple的元素确实变了，但其实变的不是tuple的元素，而是list的元素。tuple一开始。指向的list并没有改成别的list，所以，tuple所谓的“不变”是说，tuple的每个元素，指向永远不。https://liaoxuefeng.com/books/python/ Page 54 / 473。Python教程 廖雪峰。变。即指向 'a' ，就不能改成指向 'b' ，指向一个list，就不能改成指向其他对象，但指向的。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_119",
+          "hit": false,
+          "text": "这个list本身是可变的。理解了“指向不变”后，要创建一个内容也不变的tuple怎么做。那就必须保证tuple的每一个元素。本身也不能变。练习。请用索引取出下面list的指定元素：。L = [。['Apple', 'Google', 'Microsoft'],。['Java', 'Python', 'Ruby', 'PHP'],。['Adam', 'Bart', 'Bob']。]。# 打印Apple:。print(?)。# 打印Python:。print(?)。# 打印Bob:。print(?)。请问以下变量哪些是tuple类型：。a = ()。b = (1)。c = [2]。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_118",
+          "python_tutorial.txt_119",
+          "python_tutorial.txt_117",
+          "python_tutorial.txt_115",
+          "python_tutorial.txt_116",
+          "python_tutorial.txt_740",
+          "python_tutorial.txt_739",
+          "python_tutorial.txt_195",
+          "python_tutorial.txt_228",
+          "python_tutorial.txt_916",
+          "python_tutorial.txt_495",
+          "python_tutorial.txt_153",
+          "python_tutorial.txt_211",
+          "python_tutorial.txt_382",
+          "python_tutorial.txt_156",
+          "python_tutorial.txt_431",
+          "python_tutorial.txt_387",
+          "python_tutorial.txt_194",
+          "python_tutorial.txt_329",
+          "python_tutorial.txt_412"
+        ],
+        "bm25": [
+          "python_tutorial.txt_118",
+          "python_tutorial.txt_495",
+          "python_tutorial.txt_115",
+          "python_tutorial.txt_412",
+          "python_tutorial.txt_119"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "自己写函数时，可以用哪个内置函数检查传入参数的类型？",
+        "source": "python_tutorial.txt",
+        "evidence": "isinstance(x, (int, float))"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_173",
+          "hit": true,
+          "text": "检查，会导致 if 语句出错，出错信息和 abs 不一样。所以，这个函数定义不够完善。让我们修改一下 my_abs 的定义，对参数类型做检查，只允许整数和浮点数类型的参数。数据类。型检查可以用内置函数 isinstance() 实现：。def my_abs(x):。if not isinstance(x, (int, float)):。raise TypeError('bad operand type')。if x >= 0:。return x。else:。return -x。添加了参数检查后，如果传入错误的参数类型，函数就可以抛出一个错误：。>>> my_abs('A')。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_173",
+          "hit": true,
+          "text": "检查，会导致 if 语句出错，出错信息和 abs 不一样。所以，这个函数定义不够完善。让我们修改一下 my_abs 的定义，对参数类型做检查，只允许整数和浮点数类型的参数。数据类。型检查可以用内置函数 isinstance() 实现：。def my_abs(x):。if not isinstance(x, (int, float)):。raise TypeError('bad operand type')。if x >= 0:。return x。else:。return -x。添加了参数检查后，如果传入错误的参数类型，函数就可以抛出一个错误：。>>> my_abs('A')。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_173",
+          "hit": true,
+          "text": "检查，会导致 if 语句出错，出错信息和 abs 不一样。所以，这个函数定义不够完善。让我们修改一下 my_abs 的定义，对参数类型做检查，只允许整数和浮点数类型的参数。数据类。型检查可以用内置函数 isinstance() 实现：。def my_abs(x):。if not isinstance(x, (int, float)):。raise TypeError('bad operand type')。if x >= 0:。return x。else:。return -x。添加了参数检查后，如果传入错误的参数类型，函数就可以抛出一个错误：。>>> my_abs('A')。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_173",
+          "python_tutorial.txt_172",
+          "python_tutorial.txt_408",
+          "python_tutorial.txt_406",
+          "python_tutorial.txt_407",
+          "python_tutorial.txt_195",
+          "python_tutorial.txt_171",
+          "python_tutorial.txt_375",
+          "python_tutorial.txt_161",
+          "python_tutorial.txt_185",
+          "python_tutorial.txt_553",
+          "python_tutorial.txt_162",
+          "python_tutorial.txt_467",
+          "python_tutorial.txt_487",
+          "python_tutorial.txt_188",
+          "python_tutorial.txt_192",
+          "python_tutorial.txt_668",
+          "python_tutorial.txt_373",
+          "python_tutorial.txt_200",
+          "python_tutorial.txt_549"
+        ],
+        "bm25": [
+          "python_tutorial.txt_173",
+          "python_tutorial.txt_195",
+          "python_tutorial.txt_467",
+          "python_tutorial.txt_373",
+          "python_tutorial.txt_406"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "读取字典时，如果键不存在，希望拿到默认值，可以用哪个方法？",
+        "source": "python_tutorial.txt",
+        "evidence": "get() 方法，如果key不存在，可以返回 None ，或者自己指定的value",
+        "alternative_evidence": [
+          "如果希望key不存在时，返回一。个默认值，就可以用 defaultdict"
+        ]
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_569",
+          "hit": false,
+          "text": "return self[key]。except KeyError:。raise AttributeError(r\"'Dict' object has no attribute '%s'\" %。key)。def __setattr__(self, key, value):。self[key] = value。https://liaoxuefeng.com/books/python/ Page 250 / 473。Python教程 廖雪峰。if __name__=='__main__':。import doctest。doctest.testmod()。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_143",
+          "hit": false,
+          "text": "Python内置了字典：dict的支持，dict全称dictionary，在其他语言中也称为map，使用键-值。（key-value）存储，具有极快的查找速度。举个例子，假设要根据同学的名字查找对应的成绩，如果用list实现，需要两个list：。names = ['Michael', 'Bob', 'Tracy']。scores = [95, 75, 85]。给定一个名字，要查找对应的成绩，就先要在names中找到对应的位置，再从scores取出对应的。成绩，list越长，耗时越长。如果用dict实现，只需要一个“名字”-“成绩”的对照表，直接根据名字查找成绩，无论这个表有多。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_742",
+          "hit": true,
+          "text": ">>> q。deque(['y', 'a', 'b', 'c', 'x'])。deque 除了实现list的 append() 和 pop() 外，还支持 appendleft() 和 popleft() ，这。样就可以非常高效地往头部添加或删除元素。defaultdict。使用 dict 时，如果引用的Key不存在，就会抛出 KeyError。如果希望key不存在时，返回一。个默认值，就可以用 defaultdict ：。>>> from collections import defaultdict。>>> dd = defaultdict(lambda: 'N/A')。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_569",
+          "python_tutorial.txt_417",
+          "python_tutorial.txt_592",
+          "python_tutorial.txt_143",
+          "python_tutorial.txt_743",
+          "python_tutorial.txt_147",
+          "python_tutorial.txt_149",
+          "python_tutorial.txt_145",
+          "python_tutorial.txt_550",
+          "python_tutorial.txt_384",
+          "python_tutorial.txt_742",
+          "python_tutorial.txt_552",
+          "python_tutorial.txt_146",
+          "python_tutorial.txt_1012",
+          "python_tutorial.txt_470",
+          "python_tutorial.txt_744",
+          "python_tutorial.txt_435",
+          "python_tutorial.txt_584",
+          "python_tutorial.txt_467",
+          "python_tutorial.txt_436"
+        ],
+        "bm25": [
+          "python_tutorial.txt_143",
+          "python_tutorial.txt_145",
+          "python_tutorial.txt_742",
+          "python_tutorial.txt_584",
+          "python_tutorial.txt_417"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "把有重复元素的列表转换成 set，会保留重复项吗？",
+        "source": "python_tutorial.txt",
+        "evidence": "重复元素在set中自动被过滤",
+        "alternative_evidence": [
+          "在set中，没有。重复的key"
+        ]
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_151",
+          "hit": true,
+          "text": ">>> s = set([1, 2, 3])。>>> s。{1, 2, 3}。注意，传入的参数 [1, 2, 3] 是一个list，而显示的 {1, 2, 3} 只是告诉你这个set内部有1，。2，3这3个元素，显示的顺序也不表示set是有序的。重复元素在set中自动被过滤：。>>> s = {1, 1, 2, 2, 3, 3}。>>> s。{1, 2, 3}。通过 add(key) 方法可以添加元素到set中，可以重复添加，但不会有效果：。>>> s.add(4)。>>> s。{1, 2, 3, 4}。>>> s.add(4)。>>> s。{1, 2, 3, 4}。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_151",
+          "hit": true,
+          "text": ">>> s = set([1, 2, 3])。>>> s。{1, 2, 3}。注意，传入的参数 [1, 2, 3] 是一个list，而显示的 {1, 2, 3} 只是告诉你这个set内部有1，。2，3这3个元素，显示的顺序也不表示set是有序的。重复元素在set中自动被过滤：。>>> s = {1, 1, 2, 2, 3, 3}。>>> s。{1, 2, 3}。通过 add(key) 方法可以添加元素到set中，可以重复添加，但不会有效果：。>>> s.add(4)。>>> s。{1, 2, 3, 4}。>>> s.add(4)。>>> s。{1, 2, 3, 4}。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_153",
+          "hit": false,
+          "text": "set和dict的唯一区别仅在于没有存储对应的value，但是，set的原理和dict一样，所以，同样不。可以放入可变对象，因为无法判断两个可变对象是否相等，也就无法保证set内部“不会有重复元。素”。试试把list放入set，看看是否会报错。再议不可变对象。上面我们讲了，str是不变对象，而list是可变对象。对于可变对象，比如list，对list进行操作，list内部的内容是会变化的，比如：。>>> a = ['c', 'b', 'a']。>>> a.sort()。>>> a。['a', 'b', 'c']。而对于不可变对象，比如str，对str进行操作呢：。>>> a = 'abc'。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_151",
+          "python_tutorial.txt_153",
+          "python_tutorial.txt_150",
+          "python_tutorial.txt_152",
+          "python_tutorial.txt_506",
+          "python_tutorial.txt_149",
+          "python_tutorial.txt_228",
+          "python_tutorial.txt_742",
+          "python_tutorial.txt_271",
+          "python_tutorial.txt_495",
+          "python_tutorial.txt_156",
+          "python_tutorial.txt_119",
+          "python_tutorial.txt_233",
+          "python_tutorial.txt_289",
+          "python_tutorial.txt_111",
+          "python_tutorial.txt_188",
+          "python_tutorial.txt_115",
+          "python_tutorial.txt_118",
+          "python_tutorial.txt_810",
+          "python_tutorial.txt_235"
+        ],
+        "bm25": [
+          "python_tutorial.txt_151",
+          "python_tutorial.txt_150",
+          "python_tutorial.txt_153",
+          "python_tutorial.txt_289",
+          "python_tutorial.txt_152"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "为了避免多次调用共享默认列表，教程用什么值替代默认参数 []？",
+        "source": "python_tutorial.txt",
+        "evidence": "我们可以用 None 这个不变对象来实现"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_188",
+          "hit": false,
+          "text": "也可以不按顺序提供部分默认参数。当不按顺序提供部分默认参数时，需要把参数名写上。比如。调用 enroll('Adam', 'M', city='Tianjin') ，意思是， city 参数用传进去的值，其他默认。参数继续使用默认值。默认参数很有用，但使用不当，也会掉坑里。默认参数有个最大的坑，演示如下：。先定义一个函数，传入一个list，添加一个 END 再返回：。def add_end(L=[]):。L.append('END')。return L。当你正常调用时，结果似乎不错：。>>> add_end([1, 2, 3])。[1, 2, 3, 'END']。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_184",
+          "hit": false,
+          "text": "https://liaoxuefeng.com/books/python/ Page 86 / 473。Python教程 廖雪峰。>>> power(5, 2)。25。而对于 n > 2 的其他情况，就必须明确地传入n，比如 power(5, 3)。从上面的例子可以看出，默认参数可以简化函数的调用。设置默认参数时，有几点要注意：。一是必选参数在前，默认参数在后，否则Python的解释器会报错（思考一下为什么默认参数不能。放在必选参数前面）；。二是如何设置默认参数。当函数有多个参数时，把变化大的参数放前面，变化小的参数放后面。变化小的参数就可以作为。默认参数。使用默认参数有什么好处。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_190",
+          "hit": true,
+          "text": "很多初学者很疑惑，默认参数是 [] ，但是函数似乎每次都“记住了”上次添加了 'END' 后的。list。原因解释如下：。Python函数在定义的时候，默认参数 L 的值就被计算出来了，即 [] ，因为默认参数 L 也。是一个变量，它指向对象 [] ，每次调用该函数，如果改变了 L 的内容，则下次调用时，默认。参数的内容就变了，不再是函数定义时的 [] 了。特别注意。定义默认参数要牢记一点：默认参数必须指向不变对象。要修改上面的例子，我们可以用 None 这个不变对象来实现：。def add_end(L=None):。if L is None:。L = []。L.append('END')。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_188",
+          "python_tutorial.txt_190",
+          "python_tutorial.txt_187",
+          "python_tutorial.txt_184",
+          "python_tutorial.txt_185",
+          "python_tutorial.txt_668",
+          "python_tutorial.txt_115",
+          "python_tutorial.txt_191",
+          "python_tutorial.txt_149",
+          "python_tutorial.txt_750",
+          "python_tutorial.txt_176",
+          "python_tutorial.txt_315",
+          "python_tutorial.txt_195",
+          "python_tutorial.txt_654",
+          "python_tutorial.txt_459",
+          "python_tutorial.txt_814",
+          "python_tutorial.txt_183",
+          "python_tutorial.txt_271",
+          "python_tutorial.txt_211",
+          "python_tutorial.txt_381"
+        ],
+        "bm25": [
+          "python_tutorial.txt_184",
+          "python_tutorial.txt_190",
+          "python_tutorial.txt_115",
+          "python_tutorial.txt_187",
+          "python_tutorial.txt_191"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "用 *args 接收的多个位置参数，会在函数中组成哪种数据类型？",
+        "source": "python_tutorial.txt",
+        "evidence": "这些可变参数在函数调用时自动组装为一个tuple",
+        "alternative_evidence": [
+          "*args 是可变参数，args接收的是一个tuple"
+        ]
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_211",
+          "hit": true,
+          "text": "print('测试成功!')。参考源码。var_args.py。kw_args.py。小结。Python的函数具有非常灵活的参数形态，既可以实现简单的调用，又可以传入非常复杂的参数。默认参数一定要用不可变对象，如果是可变对象，程序运行时会有逻辑错误。要注意定义可变参数和关键字参数的语法：。*args 是可变参数，args接收的是一个tuple；。**kw 是关键字参数，kw接收的是一个dict。以及调用函数时如何传入可变参数和关键字参数的语法：。可变参数既可以直接传入： func(1, 2, 3) ，又可以先组装list或tuple，再通过 *args 传入：。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_205",
+          "hit": false,
+          "text": "def person(name, age, city, job):。# 缺少 *，city和job被视为位置参数。pass。参数组合。在Python中定义函数，可以用必选参数、默认参数、可变参数、关键字参数和命名关键字参数，。这5种参数都可以组合使用。但是请注意，参数定义的顺序必须是：必选参数、默认参数、可变。参数、命名关键字参数和关键字参数。比如定义一个函数，包含上述若干种参数：。def f1(a, b, c=0, *args, **kw):。print('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_211",
+          "hit": true,
+          "text": "print('测试成功!')。参考源码。var_args.py。kw_args.py。小结。Python的函数具有非常灵活的参数形态，既可以实现简单的调用，又可以传入非常复杂的参数。默认参数一定要用不可变对象，如果是可变对象，程序运行时会有逻辑错误。要注意定义可变参数和关键字参数的语法：。*args 是可变参数，args接收的是一个tuple；。**kw 是关键字参数，kw接收的是一个dict。以及调用函数时如何传入可变参数和关键字参数的语法：。可变参数既可以直接传入： func(1, 2, 3) ，又可以先组装list或tuple，再通过 *args 传入：。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_211",
+          "python_tutorial.txt_764",
+          "python_tutorial.txt_162",
+          "python_tutorial.txt_407",
+          "python_tutorial.txt_173",
+          "python_tutorial.txt_763",
+          "python_tutorial.txt_195",
+          "python_tutorial.txt_171",
+          "python_tutorial.txt_408",
+          "python_tutorial.txt_281",
+          "python_tutorial.txt_412",
+          "python_tutorial.txt_163",
+          "python_tutorial.txt_172",
+          "python_tutorial.txt_774",
+          "python_tutorial.txt_400",
+          "python_tutorial.txt_373",
+          "python_tutorial.txt_205",
+          "python_tutorial.txt_775",
+          "python_tutorial.txt_185",
+          "python_tutorial.txt_946"
+        ],
+        "bm25": [
+          "python_tutorial.txt_205",
+          "python_tutorial.txt_211",
+          "python_tutorial.txt_195",
+          "python_tutorial.txt_281",
+          "python_tutorial.txt_163"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "在函数定义中，接收额外命名参数应使用怎样的参数写法？",
+        "source": "python_tutorial.txt",
+        "evidence": "def person(name, age, **kw)",
+        "alternative_evidence": [
+          "**kw 是关键字参数，kw接收的是一个dict",
+          "def f1(a, b, c=0, *args, **kw)",
+          "def f2(a, b, c=0, *, d, **kw)"
+        ]
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_180",
+          "hit": false,
+          "text": "杂逻辑被封装起来，调用者无需了解。Python的函数定义非常简单，但灵活度却非常大。除了正常定义的必选参数外，还可以使用默认。参数、可变参数和关键字参数，使得函数定义出来的接口，不但能处理复杂的参数，还可以简化。调用者的代码。位置参数。我们先写一个计算x2的函数：。def power(x):。return x * x。对于 power(x) 函数，参数 x 就是一个位置参数。当我们调用 power 函数时，必须传入有且仅有的一个参数 x ：。>>> power(5)。25。>>> power(15)。225。现在，如果我们要计算x3怎么办。可以再定义一个。power3。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_212",
+          "hit": false,
+          "text": "func(*(1, 2, 3)) ；。https://liaoxuefeng.com/books/python/ Page 96 / 473。Python教程 廖雪峰。关键字参数既可以直接传入： func(a=1, b=2) ，又可以先组装dict，再通过 **kw 传入：。func(**{'a': 1, 'b': 2})。使用 *args 和 **kw 是Python的习惯写法，当然也可以用其他参数名，但最好使用习惯用。法。命名的关键字参数是为了限制调用者可以传入的参数名，同时可以提供默认值。定义命名的关键字参数在没有可变参数的情况下不要忘了写分隔符 * ，否则定义的将是位置参。数。评论。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_212",
+          "hit": false,
+          "text": "func(*(1, 2, 3)) ；。https://liaoxuefeng.com/books/python/ Page 96 / 473。Python教程 廖雪峰。关键字参数既可以直接传入： func(a=1, b=2) ，又可以先组装dict，再通过 **kw 传入：。func(**{'a': 1, 'b': 2})。使用 *args 和 **kw 是Python的习惯写法，当然也可以用其他参数名，但最好使用习惯用。法。命名的关键字参数是为了限制调用者可以传入的参数名，同时可以提供默认值。定义命名的关键字参数在没有可变参数的情况下不要忘了写分隔符 * ，否则定义的将是位置参。数。评论。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_180",
+          "python_tutorial.txt_194",
+          "python_tutorial.txt_201",
+          "python_tutorial.txt_373",
+          "python_tutorial.txt_281",
+          "python_tutorial.txt_202",
+          "python_tutorial.txt_205",
+          "python_tutorial.txt_195",
+          "python_tutorial.txt_282",
+          "python_tutorial.txt_456",
+          "python_tutorial.txt_197",
+          "python_tutorial.txt_383",
+          "python_tutorial.txt_739",
+          "python_tutorial.txt_338",
+          "python_tutorial.txt_185",
+          "python_tutorial.txt_182",
+          "python_tutorial.txt_312",
+          "python_tutorial.txt_335",
+          "python_tutorial.txt_212",
+          "python_tutorial.txt_192"
+        ],
+        "bm25": [
+          "python_tutorial.txt_212",
+          "python_tutorial.txt_180",
+          "python_tutorial.txt_335",
+          "python_tutorial.txt_194",
+          "python_tutorial.txt_373"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "切片 L[0:3] 会包含索引 3 的元素吗？",
+        "source": "python_tutorial.txt",
+        "evidence": "直到索引 3 为止，但不包括索引 3"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_225",
+          "hit": true,
+          "text": "对这种经常取指定索引范围的操作，用循环十分繁琐，因此，Python提供了切片（Slice）操作。符，能大大简化这种操作。对应上面的问题，取前3个元素，用一行代码就可以完成切片：。>>> L[0:3]。['Michael', 'Sarah', 'Tracy']。L[0:3] 表示，从索引 0 开始取，直到索引 3 为止，但不包括索引 3。即索引 0 ，。1 ， 2 ，正好是3个元素。如果第一个索引是 0 ，还可以省略：。https://liaoxuefeng.com/books/python/ Page 103 / 473。Python教程 廖雪峰。>>> L[:3]。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_225",
+          "hit": true,
+          "text": "对这种经常取指定索引范围的操作，用循环十分繁琐，因此，Python提供了切片（Slice）操作。符，能大大简化这种操作。对应上面的问题，取前3个元素，用一行代码就可以完成切片：。>>> L[0:3]。['Michael', 'Sarah', 'Tracy']。L[0:3] 表示，从索引 0 开始取，直到索引 3 为止，但不包括索引 3。即索引 0 ，。1 ， 2 ，正好是3个元素。如果第一个索引是 0 ，还可以省略：。https://liaoxuefeng.com/books/python/ Page 103 / 473。Python教程 廖雪峰。>>> L[:3]。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_225",
+          "hit": true,
+          "text": "对这种经常取指定索引范围的操作，用循环十分繁琐，因此，Python提供了切片（Slice）操作。符，能大大简化这种操作。对应上面的问题，取前3个元素，用一行代码就可以完成切片：。>>> L[0:3]。['Michael', 'Sarah', 'Tracy']。L[0:3] 表示，从索引 0 开始取，直到索引 3 为止，但不包括索引 3。即索引 0 ，。1 ， 2 ，正好是3个元素。如果第一个索引是 0 ，还可以省略：。https://liaoxuefeng.com/books/python/ Page 103 / 473。Python教程 廖雪峰。>>> L[:3]。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_225",
+          "python_tutorial.txt_226",
+          "python_tutorial.txt_224",
+          "python_tutorial.txt_465",
+          "python_tutorial.txt_229",
+          "python_tutorial.txt_466",
+          "python_tutorial.txt_228",
+          "python_tutorial.txt_105",
+          "python_tutorial.txt_289",
+          "python_tutorial.txt_464",
+          "python_tutorial.txt_158",
+          "python_tutorial.txt_297",
+          "python_tutorial.txt_248",
+          "python_tutorial.txt_69",
+          "python_tutorial.txt_117",
+          "python_tutorial.txt_73",
+          "python_tutorial.txt_705",
+          "python_tutorial.txt_223",
+          "python_tutorial.txt_149",
+          "python_tutorial.txt_207"
+        ],
+        "bm25": [
+          "python_tutorial.txt_225",
+          "python_tutorial.txt_226",
+          "python_tutorial.txt_224",
+          "python_tutorial.txt_117",
+          "python_tutorial.txt_105"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "怎样用一行列表生成式，得到 1 到 10 各整数的平方？",
+        "source": "python_tutorial.txt",
+        "evidence": "[x * x for x in range(1, 11)]"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_239",
+          "hit": true,
+          "text": "但如果要生成 [1x1, 2x2, 3x3, ..., 10x10] 怎么做。方法一是循环：。>>> L = []。>>> for x in range(1, 11):。... L.append(x * x)。...。>>> L。[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]。但是循环太繁琐，而列表生成式则可以用一行语句代替循环生成上面的list：。>>> [x * x for x in range(1, 11)]。[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_240",
+          "hit": false,
+          "text": "写列表生成式时，把要生成的元素 x * x 放到前面，后面跟 for 循环，就可以把list创建出。来，十分有用，多写几次，很快就可以熟悉这种语法。for循环后面还可以加上if判断，这样我们就可以筛选出仅偶数的平方：。>>> [x * x for x in range(1, 11) if x % 2 == 0]。[4, 16, 36, 64, 100]。还可以使用两层循环，可以生成全排列：。>>> [m + n for m in 'ABC' for n in 'XYZ']。['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_239",
+          "hit": true,
+          "text": "但如果要生成 [1x1, 2x2, 3x3, ..., 10x10] 怎么做。方法一是循环：。>>> L = []。>>> for x in range(1, 11):。... L.append(x * x)。...。>>> L。[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]。但是循环太繁琐，而列表生成式则可以用一行语句代替循环生成上面的list：。>>> [x * x for x in range(1, 11)]。[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_239",
+          "python_tutorial.txt_240",
+          "python_tutorial.txt_137",
+          "python_tutorial.txt_284",
+          "python_tutorial.txt_266",
+          "python_tutorial.txt_250",
+          "python_tutorial.txt_265",
+          "python_tutorial.txt_249",
+          "python_tutorial.txt_264",
+          "python_tutorial.txt_136",
+          "python_tutorial.txt_255",
+          "python_tutorial.txt_288",
+          "python_tutorial.txt_813",
+          "python_tutorial.txt_311",
+          "python_tutorial.txt_286",
+          "python_tutorial.txt_287",
+          "python_tutorial.txt_243",
+          "python_tutorial.txt_207",
+          "python_tutorial.txt_177",
+          "python_tutorial.txt_238"
+        ],
+        "bm25": [
+          "python_tutorial.txt_240",
+          "python_tutorial.txt_136",
+          "python_tutorial.txt_250",
+          "python_tutorial.txt_239",
+          "python_tutorial.txt_249"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "能够被 next() 不断调用并返回下一个值的对象，称为什么？",
+        "source": "python_tutorial.txt",
+        "evidence": "可以被 next() 函数调用并不断返回下一个值的对象称为迭代器"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_260",
+          "hit": false,
+          "text": "调用generator函数会创建一个generator对象，多次调用generator函数会创建多个相互独。立的generator。有的童鞋会发现这样调用 next() 每次都返回1：。>>> next(odd())。step 1。1。>>> next(odd())。step 1。1。>>> next(odd())。step 1。1。原因在于 odd() 会创建一个新的generator对象，上述代码实际上创建了3个完全独立的。generator，对3个generator分别调用 next() 当然每个都会返回第一个值。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_270",
+          "hit": true,
+          "text": ">>> isinstance(100, Iterable)。False。而生成器不但可以作用于 for 循环，还可以被 next() 函数不断调用并返回下一个值，直到最。后抛出 StopIteration 错误表示无法继续返回下一个值了。可以被 next() 函数调用并不断返回下一个值的对象称为迭代器： Iterator。可以使用 isinstance() 判断一个对象是否是 Iterator 对象：。>>> from collections.abc import Iterator。>>> isinstance((x for x in range(10)), Iterator)。True。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_270",
+          "hit": true,
+          "text": ">>> isinstance(100, Iterable)。False。而生成器不但可以作用于 for 循环，还可以被 next() 函数不断调用并返回下一个值，直到最。后抛出 StopIteration 错误表示无法继续返回下一个值了。可以被 next() 函数调用并不断返回下一个值的对象称为迭代器： Iterator。可以使用 isinstance() 判断一个对象是否是 Iterator 对象：。>>> from collections.abc import Iterator。>>> isinstance((x for x in range(10)), Iterator)。True。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_260",
+          "python_tutorial.txt_270",
+          "python_tutorial.txt_269",
+          "python_tutorial.txt_274",
+          "python_tutorial.txt_253",
+          "python_tutorial.txt_262",
+          "python_tutorial.txt_261",
+          "python_tutorial.txt_254",
+          "python_tutorial.txt_460",
+          "python_tutorial.txt_258",
+          "python_tutorial.txt_268",
+          "python_tutorial.txt_257",
+          "python_tutorial.txt_273",
+          "python_tutorial.txt_156",
+          "python_tutorial.txt_252",
+          "python_tutorial.txt_477",
+          "python_tutorial.txt_234",
+          "python_tutorial.txt_267",
+          "python_tutorial.txt_808",
+          "python_tutorial.txt_461"
+        ],
+        "bm25": [
+          "python_tutorial.txt_270",
+          "python_tutorial.txt_477",
+          "python_tutorial.txt_460",
+          "python_tutorial.txt_273",
+          "python_tutorial.txt_253"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "lambda 函数能写多个表达式吗？",
+        "source": "python_tutorial.txt",
+        "evidence": "匿名函数有个限制，就是只能有一个表达式"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_321",
+          "hit": true,
+          "text": "通过对比可以看出，匿名函数 lambda x: x * x 实际上就是：。def f(x):。return x * x。关键字 lambda 表示匿名函数，冒号前面的 x 表示函数参数。匿名函数有个限制，就是只能有一个表达式，不用写 return ，返回值就是该表达式的结果。用匿名函数有个好处，因为函数没有名字，不必担心函数名冲突。此外，匿名函数也是一个函数。对象，也可以把匿名函数赋值给一个变量，再利用变量来调用该函数：。>>> f = lambda x: x * x。>>> f。<function <lambda> at 0x101c6ef28>。>>> f(5)。25。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_321",
+          "hit": true,
+          "text": "通过对比可以看出，匿名函数 lambda x: x * x 实际上就是：。def f(x):。return x * x。关键字 lambda 表示匿名函数，冒号前面的 x 表示函数参数。匿名函数有个限制，就是只能有一个表达式，不用写 return ，返回值就是该表达式的结果。用匿名函数有个好处，因为函数没有名字，不必担心函数名冲突。此外，匿名函数也是一个函数。对象，也可以把匿名函数赋值给一个变量，再利用变量来调用该函数：。>>> f = lambda x: x * x。>>> f。<function <lambda> at 0x101c6ef28>。>>> f(5)。25。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_321",
+          "hit": true,
+          "text": "通过对比可以看出，匿名函数 lambda x: x * x 实际上就是：。def f(x):。return x * x。关键字 lambda 表示匿名函数，冒号前面的 x 表示函数参数。匿名函数有个限制，就是只能有一个表达式，不用写 return ，返回值就是该表达式的结果。用匿名函数有个好处，因为函数没有名字，不必担心函数名冲突。此外，匿名函数也是一个函数。对象，也可以把匿名函数赋值给一个变量，再利用变量来调用该函数：。>>> f = lambda x: x * x。>>> f。<function <lambda> at 0x101c6ef28>。>>> f(5)。25。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_321",
+          "python_tutorial.txt_292",
+          "python_tutorial.txt_255",
+          "python_tutorial.txt_532",
+          "python_tutorial.txt_809",
+          "python_tutorial.txt_176",
+          "python_tutorial.txt_56",
+          "python_tutorial.txt_313",
+          "python_tutorial.txt_192",
+          "python_tutorial.txt_300",
+          "python_tutorial.txt_311",
+          "python_tutorial.txt_117",
+          "python_tutorial.txt_286",
+          "python_tutorial.txt_287",
+          "python_tutorial.txt_209",
+          "python_tutorial.txt_322",
+          "python_tutorial.txt_79",
+          "python_tutorial.txt_195",
+          "python_tutorial.txt_320",
+          "python_tutorial.txt_159"
+        ],
+        "bm25": [
+          "python_tutorial.txt_321",
+          "python_tutorial.txt_255",
+          "python_tutorial.txt_79",
+          "python_tutorial.txt_209",
+          "python_tutorial.txt_176"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "想在函数调用前后增加日志，同时保留函数原来的定义，可以用什么机制？",
+        "source": "python_tutorial.txt",
+        "evidence": "这种在代码运行期间动态增加功能的方式，称之为“装饰器”"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_324",
+          "hit": true,
+          "text": "现在，假设我们要增强 now() 函数的功能，比如，在函数调用前后自动打印日志，但又不希望。修改 now() 函数的定义，这种在代码运行期间动态增加功能的方式，称之为“装饰器”。（Decorator）。本质上，decorator就是一个返回函数的高阶函数。所以，我们要定义一个能打印日志的。decorator，可以定义如下：。def log(func):。def wrapper(*args, **kw):。print('call %s():' % func.__name__)。return func(*args, **kw)。return wrapper。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_324",
+          "hit": true,
+          "text": "现在，假设我们要增强 now() 函数的功能，比如，在函数调用前后自动打印日志，但又不希望。修改 now() 函数的定义，这种在代码运行期间动态增加功能的方式，称之为“装饰器”。（Decorator）。本质上，decorator就是一个返回函数的高阶函数。所以，我们要定义一个能打印日志的。decorator，可以定义如下：。def log(func):。def wrapper(*args, **kw):。print('call %s():' % func.__name__)。return func(*args, **kw)。return wrapper。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_324",
+          "hit": true,
+          "text": "现在，假设我们要增强 now() 函数的功能，比如，在函数调用前后自动打印日志，但又不希望。修改 now() 函数的定义，这种在代码运行期间动态增加功能的方式，称之为“装饰器”。（Decorator）。本质上，decorator就是一个返回函数的高阶函数。所以，我们要定义一个能打印日志的。decorator，可以定义如下：。def log(func):。def wrapper(*args, **kw):。print('call %s():' % func.__name__)。return func(*args, **kw)。return wrapper。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_324",
+          "python_tutorial.txt_326",
+          "python_tutorial.txt_526",
+          "python_tutorial.txt_333",
+          "python_tutorial.txt_506",
+          "python_tutorial.txt_495",
+          "python_tutorial.txt_185",
+          "python_tutorial.txt_819",
+          "python_tutorial.txt_496",
+          "python_tutorial.txt_667",
+          "python_tutorial.txt_325",
+          "python_tutorial.txt_459",
+          "python_tutorial.txt_668",
+          "python_tutorial.txt_218",
+          "python_tutorial.txt_472",
+          "python_tutorial.txt_188",
+          "python_tutorial.txt_1028",
+          "python_tutorial.txt_540",
+          "python_tutorial.txt_260",
+          "python_tutorial.txt_190"
+        ],
+        "bm25": [
+          "python_tutorial.txt_324",
+          "python_tutorial.txt_326",
+          "python_tutorial.txt_190",
+          "python_tutorial.txt_540",
+          "python_tutorial.txt_185"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "面向对象编程有哪三个主要特点？",
+        "source": "python_tutorial.txt",
+        "evidence": "数据封装、继承和多态是面向对象的三大特点"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_368",
+          "hit": true,
+          "text": "Class是一种抽象概念，比如我们定义的Class——Student，是指学生这个概。念，而实例（Instance）则是一个个具体的Student，比如，Bart Simpson和Lisa Simpson是两。个具体的Student。所以，面向对象的设计思想是抽象出Class，根据Class创建Instance。面向对象的抽象程度又比函数要高，因为一个Class既包含数据，又包含操作数据的方法。小结。数据封装、继承和多态是面向对象的三大特点，我们后面会详细讲解。评论。https://liaoxuefeng.com/books/python/ Page 167 / 473。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_368",
+          "hit": true,
+          "text": "Class是一种抽象概念，比如我们定义的Class——Student，是指学生这个概。念，而实例（Instance）则是一个个具体的Student，比如，Bart Simpson和Lisa Simpson是两。个具体的Student。所以，面向对象的设计思想是抽象出Class，根据Class创建Instance。面向对象的抽象程度又比函数要高，因为一个Class既包含数据，又包含操作数据的方法。小结。数据封装、继承和多态是面向对象的三大特点，我们后面会详细讲解。评论。https://liaoxuefeng.com/books/python/ Page 167 / 473。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_368",
+          "hit": true,
+          "text": "Class是一种抽象概念，比如我们定义的Class——Student，是指学生这个概。念，而实例（Instance）则是一个个具体的Student，比如，Bart Simpson和Lisa Simpson是两。个具体的Student。所以，面向对象的设计思想是抽象出Class，根据Class创建Instance。面向对象的抽象程度又比函数要高，因为一个Class既包含数据，又包含操作数据的方法。小结。数据封装、继承和多态是面向对象的三大特点，我们后面会详细讲解。评论。https://liaoxuefeng.com/books/python/ Page 167 / 473。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_368",
+          "python_tutorial.txt_364",
+          "python_tutorial.txt_373",
+          "python_tutorial.txt_365",
+          "python_tutorial.txt_276",
+          "python_tutorial.txt_367",
+          "python_tutorial.txt_427",
+          "python_tutorial.txt_363",
+          "python_tutorial.txt_1040",
+          "python_tutorial.txt_15",
+          "python_tutorial.txt_490",
+          "python_tutorial.txt_14",
+          "python_tutorial.txt_1039",
+          "python_tutorial.txt_275",
+          "python_tutorial.txt_370",
+          "python_tutorial.txt_1061",
+          "python_tutorial.txt_369",
+          "python_tutorial.txt_10",
+          "python_tutorial.txt_64",
+          "python_tutorial.txt_472"
+        ],
+        "bm25": [
+          "python_tutorial.txt_368",
+          "python_tutorial.txt_14",
+          "python_tutorial.txt_373",
+          "python_tutorial.txt_369",
+          "python_tutorial.txt_364"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "try 中没有出错时，finally 语句块还会执行吗？",
+        "source": "python_tutorial.txt",
+        "evidence": "但是 finally 如果有，则一定会被执行"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_514",
+          "hit": true,
+          "text": "最后， finally 语句被执行。然后，程序继续按照。流程往下走。如果把除数 0 改成 2 ，则执行结果如下：。try...。result: 5。finally...。END。由于没有错误发生，所以 except 语句块不会被执行，但是 finally 如果有，则一定会被执行。（可以没有 finally 语句）。你还可以猜测，错误应该有很多种类，如果发生了不同类型的错误，应该由不同的 except 语句。块处理。没错，可以有多个 except 来捕获不同类型的错误：。try:。print('try...')。r = 10 / int('a')。print('result:', r)。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_514",
+          "hit": true,
+          "text": "最后， finally 语句被执行。然后，程序继续按照。流程往下走。如果把除数 0 改成 2 ，则执行结果如下：。try...。result: 5。finally...。END。由于没有错误发生，所以 except 语句块不会被执行，但是 finally 如果有，则一定会被执行。（可以没有 finally 语句）。你还可以猜测，错误应该有很多种类，如果发生了不同类型的错误，应该由不同的 except 语句。块处理。没错，可以有多个 except 来捕获不同类型的错误：。try:。print('try...')。r = 10 / int('a')。print('result:', r)。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_514",
+          "hit": true,
+          "text": "最后， finally 语句被执行。然后，程序继续按照。流程往下走。如果把除数 0 改成 2 ，则执行结果如下：。try...。result: 5。finally...。END。由于没有错误发生，所以 except 语句块不会被执行，但是 finally 如果有，则一定会被执行。（可以没有 finally 语句）。你还可以猜测，错误应该有很多种类，如果发生了不同类型的错误，应该由不同的 except 语句。块处理。没错，可以有多个 except 来捕获不同类型的错误：。try:。print('try...')。r = 10 / int('a')。print('result:', r)。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_514",
+          "python_tutorial.txt_513",
+          "python_tutorial.txt_512",
+          "python_tutorial.txt_533",
+          "python_tutorial.txt_516",
+          "python_tutorial.txt_531",
+          "python_tutorial.txt_191",
+          "python_tutorial.txt_259",
+          "python_tutorial.txt_518",
+          "python_tutorial.txt_520",
+          "python_tutorial.txt_217",
+          "python_tutorial.txt_519",
+          "python_tutorial.txt_521",
+          "python_tutorial.txt_646",
+          "python_tutorial.txt_572",
+          "python_tutorial.txt_258",
+          "python_tutorial.txt_517",
+          "python_tutorial.txt_262",
+          "python_tutorial.txt_218",
+          "python_tutorial.txt_141"
+        ],
+        "bm25": [
+          "python_tutorial.txt_514",
+          "python_tutorial.txt_513",
+          "python_tutorial.txt_516",
+          "python_tutorial.txt_259",
+          "python_tutorial.txt_141"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "使用 with open(...) 操作文件时，它会自动帮我们调用什么方法？",
+        "source": "python_tutorial.txt",
+        "evidence": "Python引入了 with 语句来自动帮我们调用 close()"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_816",
+          "hit": false,
+          "text": "并不是只有 open() 函数返回的fp对象才能使用 with 语句。实际上，任何对象，只要正确实。现了上下文管理，就可以用于 with 语句。实现上下文管理是通过 __enter__ 和 __exit__ 这两个方法实现的。例如，下面的class实现了。这两个方法：。class Query(object):。def __init__(self, name):。self.name = name。def __enter__(self):。print('Begin')。return self。def __exit__(self, exc_type, exc_value, traceback):。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_583",
+          "hit": true,
+          "text": "f = open('/path/to/file', 'r')。print(f.read())。finally:。if f:。f.close()。但是每次都这么写实在太繁琐，所以，Python引入了 with 语句来自动帮我们调用 close()。方法：。with open('/path/to/file', 'r') as f:。print(f.read())。这和前面的 try ... finally 是一样的，但是代码更佳简洁，并且不必调用 f.close() 方法。调用 read() 会一次性读取文件的全部内容，如果文件有10G，内存就爆了，所以，要保险起。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_583",
+          "hit": true,
+          "text": "f = open('/path/to/file', 'r')。print(f.read())。finally:。if f:。f.close()。但是每次都这么写实在太繁琐，所以，Python引入了 with 语句来自动帮我们调用 close()。方法：。with open('/path/to/file', 'r') as f:。print(f.read())。这和前面的 try ... finally 是一样的，但是代码更佳简洁，并且不必调用 f.close() 方法。调用 read() 会一次性读取文件的全部内容，如果文件有10G，内存就爆了，所以，要保险起。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_816",
+          "python_tutorial.txt_590",
+          "python_tutorial.txt_589",
+          "python_tutorial.txt_559",
+          "python_tutorial.txt_819",
+          "python_tutorial.txt_815",
+          "python_tutorial.txt_587",
+          "python_tutorial.txt_583",
+          "python_tutorial.txt_580",
+          "python_tutorial.txt_820",
+          "python_tutorial.txt_585",
+          "python_tutorial.txt_817",
+          "python_tutorial.txt_821",
+          "python_tutorial.txt_511",
+          "python_tutorial.txt_54",
+          "python_tutorial.txt_475",
+          "python_tutorial.txt_595",
+          "python_tutorial.txt_588",
+          "python_tutorial.txt_582",
+          "python_tutorial.txt_639"
+        ],
+        "bm25": [
+          "python_tutorial.txt_583",
+          "python_tutorial.txt_815",
+          "python_tutorial.txt_582",
+          "python_tutorial.txt_588",
+          "python_tutorial.txt_595"
+        ]
+      }
+    },
+    {
+      "case": {
+        "question": "json.dumps() 把 Python 对象序列化后，返回值是什么类型？",
+        "source": "python_tutorial.txt",
+        "evidence": "dumps() 方法返回一个 str"
+      },
+      "stages": {
+        "vector": {
+          "id": "python_tutorial.txt_616",
+          "hit": false,
+          "text": "别急，我们仔细看看 dumps() 方法的参数列表，可以发现，除了第一个必须的 obj 参数外，。dumps() 方法还提供了一大堆的可选参数：。https://docs.python.org/3/library/json.html#json.dumps。这些可选参数就是让我们来定制JSON序列化。前面的代码之所以无法把 Student 类实例序列化。为JSON，是因为默认情况下， dumps() 方法不知道如何将 Student 实例变为一个JSON的。{} 对象。可选参数 default 就是把任意一个对象变成一个可序列为JSON的对象，我们只需要为。"
+        },
+        "bm25": {
+          "id": "python_tutorial.txt_404",
+          "hit": false,
+          "text": "class Timer(object):。def run(self):。print('Start...')。这就是动态语言的“鸭子类型”，它并不要求严格的继承体系，一个对象只要“看起来像鸭子，走起。路来像鸭子”，那它就可以被看做是鸭子。https://liaoxuefeng.com/books/python/ Page 180 / 473。Python教程 廖雪峰。Python的“file-like object“就是一种鸭子类型。对真正的文件对象，它有一个 read() 方法，返。回其内容。但是，许多对象，只要有 read() 方法，都被视为“file-like object“。"
+        },
+        "rerank": {
+          "id": "python_tutorial.txt_612",
+          "hit": true,
+          "text": "https://liaoxuefeng.com/books/python/ Page 266 / 473。Python教程 廖雪峰。Python内置的 json 模块提供了非常完善的Python对象到JSON格式的转换。我们先看看如何。把Python对象变成一个JSON：。>>> import json。>>> d = dict(name='Bob', age=20, score=88)。>>> json.dumps(d)。'{\"age\": 20, \"score\": 88, \"name\": \"Bob\"}'。dumps() 方法返回一个 str ，内容就是标准的JSON。"
+        }
+      },
+      "candidate_ids": {
+        "vector": [
+          "python_tutorial.txt_616",
+          "python_tutorial.txt_613",
+          "python_tutorial.txt_615",
+          "python_tutorial.txt_621",
+          "python_tutorial.txt_618",
+          "python_tutorial.txt_620",
+          "python_tutorial.txt_611",
+          "python_tutorial.txt_619",
+          "python_tutorial.txt_610",
+          "python_tutorial.txt_612",
+          "python_tutorial.txt_614",
+          "python_tutorial.txt_609",
+          "python_tutorial.txt_607",
+          "python_tutorial.txt_617",
+          "python_tutorial.txt_606",
+          "python_tutorial.txt_608",
+          "python_tutorial.txt_872",
+          "python_tutorial.txt_415",
+          "python_tutorial.txt_404",
+          "python_tutorial.txt_271"
+        ],
+        "bm25": [
+          "python_tutorial.txt_404",
+          "python_tutorial.txt_612",
+          "python_tutorial.txt_415",
+          "python_tutorial.txt_611",
+          "python_tutorial.txt_616"
+        ]
+      }
+    }
+  ],
+  "evaluation_mode": "offline_rescore",
+  "annotation_version": "retrieval_v1_reviewed_2026-11-11",
+  "review_date": "2026-11-11",
+  "retrieval_report": "eval_result_v1_baseline_20q.json",
+  "retrieval_report_sha256": "a6f33d008b531e3a1c96ec59cd5f82671421cef2f000d9a453b8b52110297f13",
+  "candidate_evidence_hits": {
+    "vector": 20,
+    "bm25": 18
+  },
+  "config": {
+    "max_chunk_characters": 300,
+    "vector_top_n": 20,
+    "bm25_top_n": 5,
+    "rerank_top_n": 1,
+    "rerank_model": "BAAI/bge-reranker-v2-m3"
+  },
+  "code_sha256": {
+    "rag_agent.py": "cbef026706485aab1d057dc514b8a08c47a8b1e402d0891fef7fef634256d5ef",
+    "eval_rag.py": "f320e08f35b83a861d38a7db8a99317e5d75ed56e5b66b432d271811102a6d28"
+  }
+}

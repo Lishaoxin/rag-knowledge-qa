@@ -1,0 +1,120 @@
+[
+  {
+    "question": "接入 RAG 后，大模型可以引用什么？",
+    "source": "rag.txt",
+    "evidence": "能让大模型引用外部知识"
+  },
+  {
+    "question": "FastAPI 主要用来构建什么？",
+    "source": "fastapi.txt",
+    "evidence": "用于快速构建 API"
+  },
+  {
+    "question": "资料里列举了 Python 常用于哪两个领域？",
+    "source": "python.txt",
+    "evidence": "常用于数据分析和人工智能"
+  },
+  {
+    "question": "函数定义中包含 yield 时，这个函数属于什么类型？",
+    "source": "python_tutorial.txt",
+    "evidence": "而是一个generator函数"
+  },
+  {
+    "question": "tuple 创建后还能修改其中的元素吗？",
+    "source": "python_tutorial.txt",
+    "evidence": "tuple一旦初始化就不能修改",
+    "alternative_evidence": [
+      "现在，classmates这个tuple不能变了",
+      "即指向 'a' ，就不能改成指向 'b'"
+    ]
+  },
+  {
+    "question": "自己写函数时，可以用哪个内置函数检查传入参数的类型？",
+    "source": "python_tutorial.txt",
+    "evidence": "isinstance(x, (int, float))"
+  },
+  {
+    "question": "读取字典时，如果键不存在，希望拿到默认值，可以用哪个方法？",
+    "source": "python_tutorial.txt",
+    "evidence": "get() 方法，如果key不存在，可以返回 None ，或者自己指定的value",
+    "alternative_evidence": [
+      "如果希望key不存在时，返回一。个默认值，就可以用 defaultdict"
+    ]
+  },
+  {
+    "question": "把有重复元素的列表转换成 set，会保留重复项吗？",
+    "source": "python_tutorial.txt",
+    "evidence": "重复元素在set中自动被过滤",
+    "alternative_evidence": [
+      "在set中，没有。重复的key"
+    ]
+  },
+  {
+    "question": "为了避免多次调用共享默认列表，教程用什么值替代默认参数 []？",
+    "source": "python_tutorial.txt",
+    "evidence": "我们可以用 None 这个不变对象来实现"
+  },
+  {
+    "question": "用 *args 接收的多个位置参数，会在函数中组成哪种数据类型？",
+    "source": "python_tutorial.txt",
+    "evidence": "这些可变参数在函数调用时自动组装为一个tuple",
+    "alternative_evidence": [
+      "*args 是可变参数，args接收的是一个tuple"
+    ]
+  },
+  {
+    "question": "在函数定义中，接收额外命名参数应使用怎样的参数写法？",
+    "source": "python_tutorial.txt",
+    "evidence": "def person(name, age, **kw)",
+    "alternative_evidence": [
+      "**kw 是关键字参数，kw接收的是一个dict",
+      "def f1(a, b, c=0, *args, **kw)",
+      "def f2(a, b, c=0, *, d, **kw)"
+    ]
+  },
+  {
+    "question": "切片 L[0:3] 会包含索引 3 的元素吗？",
+    "source": "python_tutorial.txt",
+    "evidence": "直到索引 3 为止，但不包括索引 3"
+  },
+  {
+    "question": "怎样用一行列表生成式，得到 1 到 10 各整数的平方？",
+    "source": "python_tutorial.txt",
+    "evidence": "[x * x for x in range(1, 11)]"
+  },
+  {
+    "question": "能够被 next() 不断调用并返回下一个值的对象，称为什么？",
+    "source": "python_tutorial.txt",
+    "evidence": "可以被 next() 函数调用并不断返回下一个值的对象称为迭代器"
+  },
+  {
+    "question": "lambda 函数能写多个表达式吗？",
+    "source": "python_tutorial.txt",
+    "evidence": "匿名函数有个限制，就是只能有一个表达式"
+  },
+  {
+    "question": "想在函数调用前后增加日志，同时保留函数原来的定义，可以用什么机制？",
+    "source": "python_tutorial.txt",
+    "evidence": "这种在代码运行期间动态增加功能的方式，称之为“装饰器”"
+  },
+  {
+    "question": "面向对象编程有哪三个主要特点？",
+    "source": "python_tutorial.txt",
+    "evidence": "数据封装、继承和多态是面向对象的三大特点"
+  },
+  {
+    "question": "try 中没有出错时，finally 语句块还会执行吗？",
+    "source": "python_tutorial.txt",
+    "evidence": "但是 finally 如果有，则一定会被执行"
+  },
+  {
+    "question": "使用 with open(...) 操作文件时，它会自动帮我们调用什么方法？",
+    "source": "python_tutorial.txt",
+    "evidence": "Python引入了 with 语句来自动帮我们调用 close()"
+  },
+  {
+    "question": "json.dumps() 把 Python 对象序列化后，返回值是什么类型？",
+    "source": "python_tutorial.txt",
+    "evidence": "dumps() 方法返回一个 str"
+  }
+]

@@ -183,41 +183,39 @@ def rerank(query, documents, top_n=3):
     return docs, indices
 
 
-def hybrid_search(query, top_n=20, mid_n=5):
-    if collection.count() == 0:
+def retrieve_stages(query, target_collection, top_n=20, mid_n=5):
+    if target_collection.count() == 0:
         raise ValueError("知识库为空，请先上传文档")
 
-    # ① 向量检索：找出 20 段候选资料
-    q_vec = embed(query)
-    result = collection.query(
-        query_embeddings=[q_vec],
-        n_results=top_n
+    result = target_collection.query(
+        query_embeddings=[embed(query)],
+        n_results=top_n,
     )
     candidates = result["documents"][0]
     candidate_ids = result["ids"][0]
     if not candidates:
-        raise ValueError("没有检索到可用资料，请检查知识库")
+        raise ValueError("没有检索到可用资料")
 
-    # ② BM25：保留关键词得分最高的 5 段
     kw_ranked = keyword_search(query, candidates, top_n=mid_n)
+    mid_docs = [candidates[index] for index, _ in kw_ranked]
+    mid_ids = [candidate_ids[index] for index, _ in kw_ranked]
 
-    mid_docs = []
-    mid_ids = []
+    reranked_docs, reranked_indices = rerank(query, mid_docs, top_n=1)
 
-    for idx, score in kw_ranked:
-        mid_docs.append(candidates[idx])
-        mid_ids.append(candidate_ids[idx])
+    stages = {
+        "vector": (candidates[0], candidate_ids[0]),
+        "bm25": (mid_docs[0], mid_ids[0]),
+        "rerank": (reranked_docs[0], mid_ids[reranked_indices[0]]),
+    }
+    candidates_by_stage = {
+        "vector": candidate_ids,
+        "bm25": mid_ids,
+    }
+    return stages, candidates_by_stage
 
-    # ③ Rerank：从这 5 段中选出 1 段
-    reranked_docs, reranked_indices = rerank(
-        query, mid_docs, top_n=1
-    )
-
-    best_doc = reranked_docs[0]
-    best_id = mid_ids[reranked_indices[0]]
-
-    return best_doc, best_id
-
+def hybrid_search(query, top_n=20, mid_n=5):
+    stages, _ = retrieve_stages(query, collection, top_n, mid_n)
+    return stages["rerank"]
 
 def generate(history, context):
     resp = requests.post(

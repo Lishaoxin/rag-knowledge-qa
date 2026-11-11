@@ -1,76 +1,133 @@
-# 导入、embed、client、collection（复制你会的那些）
-import time
-import os
-import requests
+import argparse
+import json
+from hashlib import sha256
+from pathlib import Path
+
 import chromadb
-from dotenv import load_dotenv
+import rag_agent as rag
 
-load_dotenv()
-SILICONFLOW_API_KEY = os.environ.get("SILICONFLOW_API_KEY")
+ROOT = Path(__file__).resolve().parent
 
-def embed(text):
-    resp = requests.post(
-        "https://api.siliconflow.cn/v1/embeddings",
-        headers={"Authorization": f"Bearer {SILICONFLOW_API_KEY}"},
-        json={
-            "model": "BAAI/bge-large-zh-v1.5",
-            "input": text
-        },
-        timeout=(10, 120)
-    )
-    resp.raise_for_status()
 
-    return resp.json()["data"][0]["embedding"]
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--check-only", action="store_true")
+    args = parser.parse_args()
 
-client = chromadb.PersistentClient(path="./chroma_db")
-collection = client.get_or_create_collection("knowledge_base")
+    case_file = ROOT / "eval_cases_v1.json"
+    cases = json.loads(case_file.read_text(encoding="utf-8-sig"))
+    paths = sorted((ROOT / "docs").glob("*.txt"))
+    files_sha256 = {
+        path.relative_to(ROOT).as_posix(): sha256(path.read_bytes()).hexdigest()
+        for path in [case_file, *paths]
+    }
 
-test_set = [
-    # ===== rag.txt（RAG 相关）=====
-    {"question": "什么是 RAG？", "expected": "rag.txt"},
-    {"question": "RAG 的全称是什么？", "expected": "rag.txt"},
-    {"question": "检索增强生成是什么？", "expected": "rag.txt"},
-    {"question": "RAG 能解决什么问题？", "expected": "rag.txt"},
+    chunks_by_source = {
+        path.name: rag.chunk_by_sentence(path.read_text(encoding="utf-8"), max_chunk=300)
+        for path in paths
+    }
 
-    # ===== python.txt（Python 相关）=====
-    {"question": "Python 是什么？", "expected": "python.txt"},
-    {"question": "Python 适合做什么？", "expected": "python.txt"},
-    {"question": "Python 是一门什么样的语言？", "expected": "python.txt"},
+    if not cases:
+        raise ValueError("评测题库为空")
 
-    # ===== fastapi.txt（FastAPI 相关）=====
-    {"question": "FastAPI 是什么？", "expected": "fastapi.txt"},
-    {"question": "FastAPI 用来做什么？", "expected": "fastapi.txt"},
-    {"question": "FastAPI 是哪个语言写的框架？", "expected": "fastapi.txt"},
+    for case in cases:
+        chunks = chunks_by_source.get(case["source"], [])
+        evidences = [
+            case["evidence"],
+            *case.get("alternative_evidence", []),
+        ]
 
-    # ===== 人工智能科普.txt（AI 相关）=====
-    {"question": "人工智能是什么？", "expected": "人工智能科普.txt"},
-    {"question": "人工智能的起源是什么？", "expected": "人工智能科普.txt"},
-    {"question": "什么是图灵测试？", "expected": "人工智能科普.txt"},
-    {"question": "机器学习分为哪几类？", "expected": "人工智能科普.txt"},
-    {"question": "什么是监督学习？", "expected": "人工智能科普.txt"},
-    {"question": "什么是强化学习？", "expected": "人工智能科普.txt"},
-    {"question": "深度学习是什么？", "expected": "人工智能科普.txt"},
-    {"question": "Transformer 架构擅长什么？", "expected": "人工智能科普.txt"},
-    {"question": "大语言模型基于什么架构？", "expected": "人工智能科普.txt"},
-    {"question": "人工智能带来哪些挑战？", "expected": "人工智能科普.txt"},
-]
+        for evidence in evidences:
+            if not evidence or not any(evidence in chunk for chunk in chunks):
+                raise ValueError(f"找不到完整证据：{case['question']}")
 
-correct = 0
-for item in test_set:
-    # ① 检索
-    q_vec = embed(item["question"])
-    result = collection.query(query_embeddings=[q_vec], n_results=1)
-    source = result["ids"][0][0]          # 检索到的来源，如 "rag.txt_0"
-    time.sleep(0.5)
-    # ② 提取文档名（去掉 "_块号"）
-    doc_name = source.rsplit("_", 1)[0]
-    # ③ 判断是否命中
-    if doc_name == item["expected"]:
-        correct += 1
-        print(f"✅ {item['question']} → {source}")
-    else:
-        print(f"❌ {item['question']} → {source}（期望 {item['expected']}）")
+    ids = []
+    documents = []
+    for source, chunks in chunks_by_source.items():
+        ids.extend(f"{source}_{i}" for i in range(len(chunks)))
+        documents.extend(chunks)
 
-# ④ 算准确率
-accuracy = correct / len(test_set)
-print(f"\n检索准确率：{accuracy * 100:.1f}%（{correct}/{len(test_set)}）")
+    print(f"证据检查通过：{len(cases)} 题")
+    print(f"固定语料：{len(paths)} 个文件，{len(documents)} 个分块")
+    if args.check_only:
+            return
+
+    index_config = {
+        "embedding_model": "BAAI/bge-large-zh-v1.5",
+        "chunks": list(zip(ids, documents)),
+    }
+    index_key = sha256(
+        json.dumps(index_config, ensure_ascii=False).encode("utf-8")
+    ).hexdigest()[:16]
+
+    eval_client = chromadb.PersistentClient(path=str(ROOT / "eval_chroma_db"))
+    db = eval_client.get_or_create_collection(f"retrieval_{index_key}")
+
+    stored_ids = set(db.get(include=[])["ids"])
+    pending = [
+        (chunk_id, text)
+        for chunk_id, text in zip(ids, documents)
+        if chunk_id not in stored_ids
+    ]
+    print(f"评测索引 {index_key}：需新增 {len(pending)} 个分块")
+
+    for start in range(0, len(pending), 20):
+        batch = pending[start:start + 20]
+        embeddings = rag.embed_batch([text for _, text in batch])
+        db.upsert(
+            ids=[chunk_id for chunk_id, _ in batch],
+            documents=[text for _, text in batch],
+            embeddings=embeddings,
+        )
+        print(f"评测索引进度：{db.count()}/{len(documents)}")
+
+    if db.count() != len(documents):
+        raise ValueError("评测索引分块数与当前语料不一致")
+
+    hits = {"vector": 0, "bm25": 0, "rerank": 0}
+    rows = []
+
+    for case in cases:
+        evidences = [
+            case["evidence"],
+            *case.get("alternative_evidence", []),
+        ]
+
+        stages, candidates_by_stage = rag.retrieve_stages(case["question"], db)
+        row = {
+            "case": case,
+            "stages": {},
+            "candidate_ids": candidates_by_stage,
+        }
+
+        for name, (text, chunk_id) in stages.items():
+            source = chunk_id.rsplit("_", 1)[0]
+            hit = source == case["source"] and any(
+                evidence in text for evidence in evidences
+            )
+            hits[name] += int(hit)
+            row["stages"][name] = {
+                "id": chunk_id,
+                "hit": hit,
+                "text": text,
+            }
+
+        rows.append(row)
+
+    report = {
+        "index_key": index_key,
+        "embedding_model": index_config["embedding_model"],
+        "files_sha256": files_sha256,
+        "total": len(cases),
+        "hits": hits,
+        "rows": rows,
+    }
+    report_file = ROOT / "eval_result_v1.json"
+    report_file.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    for name, count in hits.items():
+        print(f"{name}: {count}/{len(cases)} ({count / len(cases):.1%})")
+
+
+if __name__ == "__main__":
+    main()
