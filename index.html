@@ -1,70 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>智能知识库问答系统</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
+            font-family: -apple-system, "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 16px;
         }
-        input {
-            width: 70%;
-            padding: 10px;
+
+        .container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            max-width: 640px;
+            width: 100%;
+            padding: 32px;
         }
+
+        h1 {
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .ask-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus {
+            border-color: #667eea;
+        }
+
         button {
-            padding: 10px 20px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            white-space: nowrap;
+        }
+        button:hover { background: #5a6fd6; }
+        button:active { transform: scale(0.96); }
+        button:disabled { opacity: 0.6; cursor: wait; }
+
+        #answer {
+            background: #f7f8fc;
+            border-radius: 12px;
+            padding: 18px;
+            min-height: 60px;
+            line-height: 1.7;
+            font-size: 15px;
+            color: #333;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin-bottom: 24px;
+        }
+        #answer:empty::before {
+            content: "等待提问...";
+            color: #bbb;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px dashed #e0e0e0;
+            margin: 24px 0;
+        }
+
+        h3 {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .upload-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #666;
             cursor: pointer;
         }
-        #answer {
-            margin-top: 20px;
-            background: #f5f5f5;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        #source {
-            color: #888;
+
+        #uploadResult {
+            margin-top: 12px;
             font-size: 14px;
+            color: #4caf50;
         }
+        #uploadResult.error { color: #e74c3c; }
     </style>
 </head>
 <body>
-    <h1>🤖 智能知识库问答系统</h1>
+    <div class="container">
+        <h1>🤖 智能知识库问答系统</h1>
+        <p class="subtitle">上传你的文档，然后向它提问</p>
 
-    <input type="text" id="question" placeholder="输入你的问题...">
-    <button onclick="ask()">提问</button>
+        <div class="ask-row">
+            <input type="text" id="question" placeholder="输入你的问题...">
+            <button id="askButton" onclick="ask()">提问</button>
+        </div>
 
-    <div id="answer"></div>
+        <div id="answer"></div>
+
+        <hr class="divider">
+
+        <h3>📄 上传文档</h3>
+        <div class="upload-row">
+            <input type="file" id="fileInput">
+            <button onclick="uploadFile()">上传</button>
+        </div>
+        <div id="uploadResult"></div>
+    </div>
 
     <script>
+        // 每个浏览器会话使用自己的历史，刷新页面后继续沿用。
+        const userId = sessionStorage.getItem("rag_user_id") || crypto.randomUUID();
+        sessionStorage.setItem("rag_user_id", userId);
+        let isAsking = false;
+
         async function ask() {
-        const q = document.getElementById("question").value;
-        const answerDiv = document.getElementById("answer");
+            if (isAsking) return;
+            const q = document.getElementById("question").value.trim();
+            if (!q) { alert("请输入问题"); return; }
+            const answerDiv = document.getElementById("answer");
+            const askButton = document.getElementById("askButton");
+            isAsking = true;
+            askButton.disabled = true;
+            answerDiv.textContent = "思考中...";
 
-        answerDiv.innerHTML = "思考中...";   // 先显示提示
+            try {
+                const resp = await fetch("/ask_stream", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({"question": q, "user_id": userId})
+                });
+                if (!resp.ok) throw new Error(`请求失败（${resp.status}）`);
+                if ((resp.headers.get("content-type") || "").includes("application/json")) {
+                    const data = await resp.json();
+                    throw new Error(data.error || "问答请求失败");
+                }
 
-        const resp = await fetch("/ask_stream", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({"question": q})
-        });
+                answerDiv.textContent = "";
+                const reader = resp.body.getReader();
+                const decoder = new TextDecoder("utf-8");
 
-        answerDiv.innerHTML = "";           // 清空提示
-
-        const reader = resp.body.getReader();       // ① 拿到读取器
-        const decoder = new TextDecoder("utf-8");   // ② 解码器（处理中文）
-
-        while (true) {
-            const {done, value} = await reader.read();   // ③ 读一块
-            if (done) break;                             // 读完了，退出
-
-            const text = decoder.decode(value, {stream: true});  // ④ 字节转文字
-            answerDiv.innerHTML += text;                 // ⑤ 追加到页面
+                while (true) {
+                    const {done, value} = await reader.read();
+                    if (done) break;
+                    answerDiv.textContent += decoder.decode(value, {stream: true});
+                }
+                answerDiv.textContent += decoder.decode();
+            } catch (error) {
+                answerDiv.textContent = `出错了：${error.message}`;
+            } finally {
+                isAsking = false;
+                askButton.disabled = false;
+            }
         }
-    }
 
+        async function uploadFile() {
+            const file = document.getElementById("fileInput").files[0];
+            if (!file) { alert("请先选择文件"); return; }
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const resultDiv = document.getElementById("uploadResult");
+            resultDiv.className = "";
+            resultDiv.innerText = "上传中...";
+
+            const resp = await fetch("/upload_file", {
+                method: "POST",
+                body: formData
+            });
+            const data = await resp.json();
+
+            if (data.message) {
+                resultDiv.innerText = "✅ " + data.message;
+            } else {
+                resultDiv.className = "error";
+                resultDiv.innerText = "❌ " + (data.error || "上传失败");
+            }
+        }
     </script>
 </body>
 </html>

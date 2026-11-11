@@ -12,8 +12,14 @@ def embed(text):
     resp = requests.post(
         "https://api.siliconflow.cn/v1/embeddings",
         headers={"Authorization": f"Bearer {SILICONFLOW_API_KEY}"},
-        json={"model": "BAAI/bge-large-zh-v1.5", "input": text}
+        json={
+            "model": "BAAI/bge-large-zh-v1.5",
+            "input": text
+        },
+        timeout=(10, 120)
     )
+    resp.raise_for_status()
+
     return resp.json()["data"][0]["embedding"]
 
 client = chromadb.PersistentClient(path="./chroma_db")
@@ -57,8 +63,7 @@ for item in test_set:
     source = result["ids"][0][0]          # 检索到的来源，如 "rag.txt_0"
     time.sleep(0.5)
     # ② 提取文档名（去掉 "_块号"）
-    doc_name = source.split("_")[0]       # "rag.txt_0" → "rag.txt"
-
+    doc_name = source.rsplit("_", 1)[0]
     # ③ 判断是否命中
     if doc_name == item["expected"]:
         correct += 1

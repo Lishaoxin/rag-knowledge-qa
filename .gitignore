@@ -15,7 +15,6 @@ chroma_db/
 Minimum_*.py
 Minimun_*.py
 strength.py
-main.py
 test_*.py
 embedding_demo.py
 minimal_rag.py

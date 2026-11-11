@@ -13,8 +13,14 @@ def embed(text):
     resp = requests.post(
         "https://api.siliconflow.cn/v1/embeddings",
         headers={"Authorization": f"Bearer {SILICONFLOW_API_KEY}"},
-        json={"model": "BAAI/bge-large-zh-v1.5", "input": text}
+        json={
+            "model": "BAAI/bge-large-zh-v1.5",
+            "input": text
+        },
+        timeout=(10, 120)
     )
+    resp.raise_for_status()
+
     return resp.json()["data"][0]["embedding"]
 
 # ===== ② Chroma =====
@@ -57,11 +63,23 @@ def generate(history, context):
         headers={"Authorization": f"Bearer {DEEPSEEK_API_KEY}"},
         json={
             "model": "deepseek-flash",
+            "temperature": 0.3,
             "messages": [
-                {"role": "system", "content": f"你是一个助手，根据资料回答。\n\n资料：{context}"}
+                {
+                    "role": "system",
+                    "content": (
+                        "你是一个知识库问答助手。只回答最新一条用户消息，不要重新回答历史问题。\n"
+                        "历史对话仅用于理解当前问题中的指代和上下文。\n"
+                        "根据本轮检索资料回答；资料不足时，明确说明无法根据现有资料回答，不要编造。\n"
+                        f"\n本轮检索资料：\n{context}"
+                    )
+                }
             ] + history
-        }
+        },
+        timeout=(10, 120)
     )
+    resp.raise_for_status()
+
     return resp.json()["choices"][0]["message"]["content"]
 
 # ===== ⑥ LLM 判卷（判断答案对不对）=====
@@ -71,28 +89,44 @@ def judge_answer(question, answer, expected):
 标准答案：{expected}
 模型回答：{answer}
 
-请判断「模型回答」是否**包含了标准答案的核心意思**（不必逐字一致，角度可以不同，只要意思对就算对）。只回答「对」或「错」。
+请判断「模型回答」是否包含了标准答案的核心意思（不必逐字一致，角度可以不同，只要意思对就算对）。只回答「对」或「错」。
 """
 
     resp = requests.post(
         "https://api.deepseek.com/chat/completions",
         headers={"Authorization": f"Bearer {DEEPSEEK_API_KEY}"},
-        json={"model": "deepseek-flash",
-              "messages": [{"role": "user", "content": prompt}]}
+        json={
+            "model": "deepseek-flash",
+            "messages": [
+                {"role": "user", "content": prompt}
+            ]
+        },
+        timeout=(10, 120)
     )
+    resp.raise_for_status()
+
     return resp.json()["choices"][0]["message"]["content"]
 
 def rerank(query, documents, top_n=1):
     resp = requests.post(
         "https://api.siliconflow.cn/v1/rerank",
         headers={"Authorization": f"Bearer {SILICONFLOW_API_KEY}"},
-        json={"model": "BAAI/bge-reranker-v2-m3",
-              "query": query, "documents": documents, "top_n": top_n}
+        json={
+            "model": "BAAI/bge-reranker-v2-m3",
+            "query": query,
+            "documents": documents,
+            "top_n": top_n
+        },
+        timeout=(10, 120)
     )
+    resp.raise_for_status()
+
     data = resp.json()
     results = data["results"]
-    indices = [r["index"] for r in results]
-    docs = [documents[i] for i in indices]
+
+    indices = [result["index"] for result in results]
+    docs = [documents[index] for index in indices]
+
     return docs, indices
 
 
@@ -119,8 +153,12 @@ for item in test_set:
         # ② 多数投票：判 3 次
         yes_count = 0
         for _ in range(3):
-            result = judge_answer(item["question"], answer, item["expected"])
-            if "对" in result:
+            result = judge_answer(item["question"], answer, item["expected"]).strip()
+
+            if result not in ("对", "错"):
+                raise ValueError(f"判卷格式错误：{result}")
+
+            if result == "对":
                 yes_count += 1
 
         # ③ 2 次以上判对，就算对

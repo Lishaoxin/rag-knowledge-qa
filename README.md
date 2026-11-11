@@ -47,7 +47,7 @@
 ### 1. 安装依赖
 
 ```bash
-pip install fastapi uvicorn chromadb requests python-dotenv
+pip install -r requirements.txt
 ```
 
 ### 2. 配置环境变量
@@ -66,7 +66,7 @@ SILICONFLOW_API_KEY=sk-你的SiliconFlow-key
 ### 4. 启动
 
 ```bash
-uvicorn rag_agent:app --reload
+uvicorn main:app --reload
 ```
 
 ### 5. 访问
@@ -113,7 +113,8 @@ uvicorn rag_agent:app --reload
 ```
 ├── rag_agent.py      # 主程序（FastAPI + RAG）
 ├── index.html        # 前端页面
-├── eval_rag.py       # 评测脚本
+├── main.py           # FastAPI 入口、接口和会话管理
+├── rag_agent.py      # 文档处理、检索、重排和答案生成
 ├── docs/             # 知识库文档（.txt）
 ├── chroma_db/        # 向量数据库（持久化）
 └── .env              # API Key（不上传 GitHub）
@@ -123,10 +124,10 @@ uvicorn rag_agent:app --reload
 
 ## 🔮 后续计划
 
-- [ ] 流式输出（答案逐字返回）
-- [ ] 混合检索（关键词 + 向量）
-- [ ] 语义分块（替代固定长度切块）
-- [ ] 答案评测（LLM-as-judge）
+- [x] 流式输出（答案逐字返回）
+- [x] 混合检索（关键词 + 向量）
+- [x] 语义分块（替代固定长度切块）
+- [x] 答案评测（LLM-as-judge）
 - [ ] Docker 部署
 - [ ] 将本项目定制为自己的专属Agent项目
 
