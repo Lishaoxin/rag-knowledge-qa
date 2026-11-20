@@ -5,8 +5,7 @@ from pathlib import Path
 import chromadb
 import rag_agent as rag
 
-ROOT = Path(__file__).resolve().parent
-OUTPUT_DIR = ROOT
+from evaluation.eval_rag import CASES_PATH, EVALUATION_DIR, ROOT, RUNS_DIR
 
 
 def save_report(path, report):
@@ -36,12 +35,13 @@ def rerank_and_score(case, candidate_ids, text_by_id):
 
 
 def main():
-    baseline_path = ROOT / "eval_result_v1_reviewed.json"
+    baseline_path = EVALUATION_DIR / "reports" / "eval_result_v1_reviewed.json"
     baseline_bytes = baseline_path.read_bytes()
     baseline = json.loads(baseline_bytes.decode("utf-8-sig"))
 
     for name, expected_hash in baseline["files_sha256"].items():
-        if sha256((ROOT / name).read_bytes()).hexdigest() != expected_hash:
+        input_path = CASES_PATH if name == CASES_PATH.name else ROOT / name
+        if sha256(input_path.read_bytes()).hexdigest() != expected_hash:
             raise ValueError(f"输入与审核基线不一致：{name}")
 
     client = chromadb.PersistentClient(path=str(ROOT / "eval_chroma_db"))
@@ -70,7 +70,8 @@ def main():
     experiment_key = sha256(
         json.dumps(inputs, sort_keys=True).encode("utf-8")
     ).hexdigest()[:12]
-    output_path = OUTPUT_DIR / f"eval_compare_bm25_{experiment_key}.json"
+    RUNS_DIR.mkdir(exist_ok=True)
+    output_path = RUNS_DIR / f"eval_compare_bm25_{experiment_key}.json"
 
     if output_path.exists():
         report = json.loads(output_path.read_text(encoding="utf-8"))
@@ -126,7 +127,7 @@ def main():
         print(f"{method}: {count}/{report['total']} ({count / report['total']:.1%})")
     print(f"去掉 BM25 后由未命中变为命中：{len(report['gains_without_bm25'])} 题")
     print(f"去掉 BM25 后由命中变为未命中：{len(report['losses_without_bm25'])} 题")
-    print(f"报告：{output_path.name}")
+    print(f"报告：{output_path.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

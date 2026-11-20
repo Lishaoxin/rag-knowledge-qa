@@ -6,7 +6,10 @@ from pathlib import Path
 import chromadb
 import rag_agent as rag
 
-ROOT = Path(__file__).resolve().parent
+EVALUATION_DIR = Path(__file__).resolve().parent
+ROOT = EVALUATION_DIR.parent
+CASES_PATH = EVALUATION_DIR / "cases" / "eval_cases_v1.json"
+RUNS_DIR = EVALUATION_DIR / "runs"
 
 
 def main():
@@ -14,7 +17,7 @@ def main():
     parser.add_argument("--check-only", action="store_true")
     args = parser.parse_args()
 
-    case_file = ROOT / "eval_cases_v1.json"
+    case_file = CASES_PATH
     cases = json.loads(case_file.read_text(encoding="utf-8-sig"))
     paths = sorted((ROOT / "docs").glob("*.txt"))
     files_sha256 = {
@@ -50,7 +53,7 @@ def main():
     print(f"证据检查通过：{len(cases)} 题")
     print(f"固定语料：{len(paths)} 个文件，{len(documents)} 个分块")
     if args.check_only:
-            return
+        return
 
     index_config = {
         "embedding_model": "BAAI/bge-large-zh-v1.5",
@@ -122,7 +125,8 @@ def main():
         "hits": hits,
         "rows": rows,
     }
-    report_file = ROOT / "eval_result_v1.json"
+    RUNS_DIR.mkdir(exist_ok=True)
+    report_file = RUNS_DIR / "eval_result_v1.json"
     report_file.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
     for name, count in hits.items():

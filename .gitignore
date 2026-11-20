@@ -23,3 +23,4 @@ chunk_demo.py
 rag_retrieve_func.py
 tools_model
 eval_chroma_db/
+/evaluation/runs/

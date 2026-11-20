@@ -1,0 +1,3 @@
+/docs/*.txt -text
+/evaluation/cases/*.json text eol=lf
+/evaluation/reports/*.json text eol=lf
